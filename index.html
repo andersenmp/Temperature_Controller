@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		body  { font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif; }
+		
+		#currentTempGauge, #targetTempGauge {
+			position: absolute !important;
+			width: 350px;
+			height: 350px;
+		}
+		
+		#displays {
+			position: absolute !important;
+			top: 350px;
+			width: 350px;
+			
+		}
+		
+		#sliders {
+			position: absolute !important;
+			top: 50px;
+			left: 370px;
+		}
+		
+		#outlets {
+			position: absolute !important;
+			top: 200px;
+			left: 370px;
+			width: 200px;
+			
+		}
+		
+		.custom-on-class-target {
+			fill: red;
+		}
+		
+		.custom-on-class-current {
+			fill: black;
+		}
+
+		.custom-digit-class {
+			fill: #F0EDED;
+			background-color: #F9F9F9;
+		}
+		
+		@media screen and (max-width: 650px) and (min-width: 100px) {
+
+			#sliders {
+				position: absolute !important;
+				top: 410px;
+				left: 50px;
+			}
+			
+			#outlets {
+				position: absolute !important;
+				top: 550px;
+				width: 200px;
+				left: 0;
+				
+			}
+		}
+
+		
+		
+	</style>
+    <title>Temperature Controller</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="lib/kendoui/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="lib/kendoui/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="lib/kendoui/styles/kendo.default.mobile.min.css" />
+	
+    <script src="lib/kendoui/js/jquery.min.js"></script>
+    <script src="lib/kendoui/js/angular.min.js"></script>
+    <script src="lib/kendoui/js/kendo.all.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="lib/segment/angular-7segments.js"></script>
+			
+</head>
+<body>
+<div ng-app="temperatureController">
+    <div ng-controller="GaugeCtrl" >
+	    <div id="gauges">
+			<span  id="currentTempGauge"
+				kendo-radialgauge 
+                k-scale="
+				{ 
+					min: -55, 
+					max: 150,
+					startAngle: -60,
+                    endAngle: 240,
+					majorUnit: 5,
+                    majorTicks: {
+                        width: 1,
+                        size: 7
+                    },
+                    minorUnit: 1,
+                    minorTicks: {
+                        size: 5
+                    },
+					ranges: 
+					[
+						{
+							from: -55,
+							to: 0,
+							color: '#0ED2F5'
+						}, 
+						{
+							from: 100,
+							to: 150,
+							color: '#F5770E'
+						}	
+					]
+				}"
+				
+				k-pointer="
+				[
+					
+					{
+						value: {{currentTempGauge}},
+						color:'#000000',
+						cap:{ size:0.15}
+					}
+				]"
+				
+				ng-model="currentTempGauge"></span>
+				
+			<span  id="targetTempGauge"
+				kendo-radialgauge 
+                k-scale="
+				{ 
+					min: -55, 
+					max: 150,
+					startAngle: -60,
+                    endAngle: 240,
+					majorUnit: 5,
+                    majorTicks: {
+                        width: 1,
+                        size: 7
+                    },
+                    minorUnit: 1,
+                    minorTicks: {
+                        size: 5
+                    },
+					ranges: 
+					[
+						{
+							from: -55,
+							to: 0,
+							color: '#0ED2F5'
+						}, 
+						{
+							from: 100,
+							to: 150,
+							color: '#F5770E'
+						}	
+					]
+				}"
+				
+				k-pointer="
+				[
+					
+					{
+						value: {{targetTempGauge}},
+						color:'#F40505'
+					}
+					
+				]"
+				
+				ng-model="targetTempGauge"
+               
+				></span>
+				
+				
+		
+			<div id="displays">
+			
+				<table width="100%">
+					<tr>
+						<td align="center" width="50%">
+							<div seg-group seg-options="options" 
+								data-ng-model="currentTempGauge"
+								seg-digit-options="digitOptionsLCDCurrent" > </div>
+						</td>
+						<td align="center" width="50%">
+							<div seg-group seg-options="options" 
+								data-ng-model="targetTempGauge"
+								seg-digit-options="digitOptionsLCDTarget" > </div>
+								
+							  
+						</td>
+					</tr>
+				</table>
+			
+			</div>
+
+		
+			<div id="sliders">
+				<p>
+					<h4>Target Temperature</h4>
+					<input kendo-slider k-min="-55" k-max="150" k-show-buttons="true" k-show-labels="false" k-small-step="0.5" k-large-step="5" ng-model="targetTempGauge">
+				</p>
+				<p>
+					<h4 style="color:red"> Current Temperature (TEST ONLY)</h4>
+					<input kendo-slider k-min="-55" k-max="150" k-show-buttons="true" k-show-labels="false" k-small-step="0.5" k-large-step="5" ng-model="currentTempGauge" ng-change="changeOutlets()">
+				</p>
+			
+			</div>
+			
+			<div id="outlets">
+
+				<table width="100%">
+					<tr>
+						<td align="center" width="50%">
+							<img ng-src="images/outlet_{{outlet_A}}.png" alt="Outlet A" />
+						</td>
+						<td align="center" width="50%">
+							<img ng-src="images/outlet_{{outlet_B}}.png" alt="Outlet B" />
+						</td>
+					</tr>
+					<tr>
+						<td align="center" width="50%">
+							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="true" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 120px" ng-change="changeOutlets()">
+						</td>
+						<td align="center" width="50%">
+							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="true" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 120px" ng-change="changeOutlets()">
+						</td>
+					</tr>
+				</table>
+			
+			</div>
+		</div>
+	</div>
+			
+	<script>
+		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
+			.controller("GaugeCtrl", function($scope){
+				$scope.currentTempGauge = "27.0";
+				$scope.targetTempGauge = "0.0";
+				$scope.outlet_A = "off";
+				$scope.outlet_B = "off";
+				$scope.switchOutletA =  1;
+				$scope.switchOutletB =  1;
+				
+				$scope.optionsLCD = {
+					size: 4,
+					watch: false
+				};
+	
+				$scope.digitOptionsLCDTarget = {
+					onClass: 'custom-on-class-target',   // class name for light-on part
+					digitClass: 'custom-digit-class',    // class name for entire digit
+					height: 50,
+					width: 30
+				};
+				
+				$scope.digitOptionsLCDCurrent = {
+					onClass: 'custom-on-class-current',  // class name for light-on part
+					digitClass: 'custom-digit-class',    // class name for entire digit
+					height: 50,
+					width: 40
+				};
+				
+				$scope.changeOutlets = function (){
+				
+					
+					
+					switch($scope.switchOutletA){
+						case 0:
+							$scope.outlet_A = "off";
+							break;
+						case 1:
+							if(parseFloat($scope.currentTempGauge)<parseFloat($scope.targetTempGauge)){
+								$scope.outlet_A = "on";
+							}else{
+								$scope.outlet_A = "off";
+							}
+							break;
+						case 3:
+							$scope.outlet_A = "on"
+							break;
+					}
+					
+					
+					switch($scope.switchOutletB){
+						case "0":
+							$scope.outlet_B = "off";
+							console.log($scope.switchOutletB);
+							break;
+						case "1":
+							if(parseFloat($scope.currentTempGauge)<=parseFloat($scope.targetTempGauge)){
+								$scope.outlet_B = "off";
+							}else{
+								$scope.outlet_B = "on";
+							}
+							break;
+						case "3":
+							$scope.outlet_B = "on"
+							break;
+					}
+						
+				}
+				
+				$scope.changeOutlets();
+	
+			})
+	</script>
+	<script>
+	 $(document).ready(function() {
+		var steps = {};
+		steps[0] = 'OFF';
+		steps[1] = 'AUTO';
+		steps[2] = 'ON';
+	
+		
+		for(var i =0;i<3;i++){
+			var sliderItems = $("#sliderOutlet_"+i).siblings(".k-slider-items");
+
+			$.each(steps, function(index, value){
+				var item = sliderItems.find("li:eq("+ (index) +")");
+				item.attr("title", value);
+				item.find("span").text(value);
+			});
+		}
+	});
+	</script>
+	
+</div>
+</body>
+</html>
