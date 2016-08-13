@@ -25,10 +25,10 @@ try:
     for i in pinList:
         GPIO.output(pinList[i], GPIO.LOW)
         print "Key" + str(i)
-        time.sleep(SleepTimeL);
+        time.sleep(SleepTimeL)
 
-  GPIO.cleanup()
-  print "Good bye!"
+    GPIO.cleanup()
+    print "Good bye!"
 
 # End program cleanly with keyboard
 except KeyboardInterrupt:
