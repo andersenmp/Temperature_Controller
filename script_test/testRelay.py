@@ -23,7 +23,7 @@ SleepTimeL = 2
 
 try:
     for i in pinList:
-        GPIO.output(pinList[i], GPIO.LOW)
+        GPIO.output(i, GPIO.LOW)
         print "Key" + str(i)
         time.sleep(SleepTimeL)
 
