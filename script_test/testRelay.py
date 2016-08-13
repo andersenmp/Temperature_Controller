@@ -27,10 +27,10 @@ try:
         print "Key " + str(i)
         time.sleep(SleepTimeL)
 
-        for i in pinList.reverse():
-            GPIO.output(i, GPIO.LOW)
-            print "Key " + str(i)
-            time.sleep(SleepTimeL)
+    for i in pinList.reverse():
+        GPIO.output(i, GPIO.LOW)
+        print "Key " + str(i)
+        time.sleep(SleepTimeL)
 
     GPIO.cleanup()
     print "Good bye!"
