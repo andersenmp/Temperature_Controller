@@ -24,8 +24,13 @@ SleepTimeL = 2
 try:
     for i in pinList:
         GPIO.output(i, GPIO.LOW)
-        print "Key" + str(i)
+        print "Key " + str(i)
         time.sleep(SleepTimeL)
+
+        for i in pinList.reverse():
+            GPIO.output(i, GPIO.LOW)
+            print "Key " + str(i)
+            time.sleep(SleepTimeL)
 
     GPIO.cleanup()
     print "Good bye!"
