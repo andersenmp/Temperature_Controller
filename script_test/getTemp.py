@@ -1,10 +1,6 @@
+#!/usr/bin/python
 ##Get temp from Sensor ds18b20 on raspberry pi GPIO 4
-##
-##
-##
-##
-##
-##
+
 
 #import os
 import time
