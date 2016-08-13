@@ -31,7 +31,7 @@ try:
   GPIO.output(21, GPIO.LOW)
   print "THREE"
   time.sleep(SleepTimeL);
-  GPIO.output(26, GPIO.LOW)
+  #GPIO.output(26, GPIO.LOW)
   print "FOUR"
   time.sleep(SleepTimeL);
 

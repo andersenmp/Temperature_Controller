@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fa3cf43-4e43-4827-8829-34b609319cc3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/script_test/testRelay.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script_test/getTemp.py" afterPath="$PROJECT_DIR$/script_test/getTemp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script_test/testRelay.py" afterPath="$PROJECT_DIR$/script_test/testRelay.py" />
     </list>
     <ignored path="Temperature_Controller.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +36,8 @@
       <file leaf-file-name="testRelay.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script_test/testRelay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+            <state relative-caret-position="495">
+              <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
               <folding>
                 <element signature="e#31#54#0" expanded="true" />
               </folding>
@@ -316,7 +315,14 @@
       <option name="project" value="LOCAL" />
       <updated>1471122523483</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Relay test">
+      <created>1471124319840</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1471124319840</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -355,7 +361,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="getTemp test script" />
-    <option name="LAST_COMMIT_MESSAGE" value="getTemp test script" />
+    <MESSAGE value="Relay test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Relay test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -372,8 +379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script_test/testRelay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        <state relative-caret-position="495">
+          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
           <folding>
             <element signature="e#31#54#0" expanded="true" />
           </folding>
