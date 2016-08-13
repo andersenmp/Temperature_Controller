@@ -27,7 +27,7 @@ try:
         print "Key " + str(i)
         time.sleep(SleepTimeL)
 
-    for i in pinList.reverse():
+    for i in reversed(pinList):
         GPIO.output(i, GPIO.LOW)
         print "Key " + str(i)
         time.sleep(SleepTimeL)
