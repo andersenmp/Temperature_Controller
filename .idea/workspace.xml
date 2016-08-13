@@ -36,8 +36,8 @@
       <file leaf-file-name="testRelay.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script_test/testRelay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+            <state relative-caret-position="416">
+              <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
               <folding>
                 <element signature="e#31#54#0" expanded="true" />
               </folding>
@@ -357,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1471125326810</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Relay test">
+      <created>1471125442480</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1471125442480</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -414,8 +421,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script_test/testRelay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        <state relative-caret-position="416">
+          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
           <folding>
             <element signature="e#31#54#0" expanded="true" />
           </folding>
