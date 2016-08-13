@@ -22,18 +22,10 @@ SleepTimeL = 2
 # main loop
 
 try:
-  GPIO.output(16, GPIO.LOW)
-  print "ONE"
-  time.sleep(SleepTimeL);
-  GPIO.output(20, GPIO.LOW)
-  print "TWO"
-  time.sleep(SleepTimeL);
-  GPIO.output(21, GPIO.LOW)
-  print "THREE"
-  time.sleep(SleepTimeL);
-  #GPIO.output(26, GPIO.LOW)
-  print "FOUR"
-  time.sleep(SleepTimeL);
+    for i in pinList:
+        GPIO.output(pinList[i], GPIO.LOW)
+        print "Key" + str(i)
+        time.sleep(SleepTimeL);
 
   GPIO.cleanup()
   print "Good bye!"
