@@ -7,6 +7,7 @@ else:
     import API_hardware.GPIO_MOCK as GPIO
 
 def init(pinlist):
+    GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
     # loop through pins and set mode and state to 'low'
     for i in pinlist:
