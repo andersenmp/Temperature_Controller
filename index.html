@@ -355,7 +355,7 @@
 
 
 				$scope.getTemp = function () {
-					$http.get('http://127.0.0.1/getTemp').
+					$http.get('/getTemp').
 						success(function(data) {
 							$scope.currentTempGauge = data.c.toString();
 							$scope.changeOutlets();
@@ -367,7 +367,7 @@
 				$scope.relayOn =  function(item) {
 					$http({
 						method: 'POST',
-						url: 'http://127.0.0.1/relayOn',
+						url: '/relayOn',
 						data: "relay=" + item,
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					});
@@ -376,7 +376,7 @@
 				$scope.relayOff =  function(item) {
 					$http({
 						method: 'POST',
-						url: 'http://127.0.0.1/relayOff',
+						url: '/relayOff',
 						data: "relay=" + item,
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					});
