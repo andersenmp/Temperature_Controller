@@ -67,16 +67,16 @@
 		
 	</style>
     <title>Temperature Controller</title>
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="lib/kendoui/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="lib/kendoui/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="lib/kendoui/styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/lib/kendoui/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="/static/lib/kendoui/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="/static/lib/kendoui/styles/kendo.default.mobile.min.css" />
 	
-    <script src="lib/kendoui/js/jquery.min.js"></script>
-    <script src="lib/kendoui/js/angular.min.js"></script>
-    <script src="lib/kendoui/js/kendo.all.min.js"></script>
-	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="lib/segment/angular-7segments.js"></script>
+    <script src="/static/lib/kendoui/js/jquery.min.js"></script>
+    <script src="/static/lib/kendoui/js/angular.min.js"></script>
+    <script src="/static/lib/kendoui/js/kendo.all.min.js"></script>
+	<script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/static/lib/segment/angular-7segments.js"></script>
 			
 </head>
 <body>
@@ -213,21 +213,42 @@
 
 				<table width="100%">
 					<tr>
-						<td align="center" width="50%">
-							<img ng-src="images/outlet_{{outlet_A}}.png" alt="Outlet A" />
+						<td align="center" width="33%">
+							<img ng-src="/static/images/outlet_{{outlet_A}}.png" alt="Outlet A" />
 						</td>
-						<td align="center" width="50%">
-							<img ng-src="images/outlet_{{outlet_B}}.png" alt="Outlet B" />
+						<td align="center" width="33%">
+							<img ng-src="/static/images/outlet_{{outlet_B}}.png" alt="Outlet B" />
+						</td>
+						<td align="center" width="33%">
+							<img ng-src="/static/images/outlet_{{outlet_C}}.png" alt="Outlet C" />
 						</td>
 					</tr>
 					<tr>
-						<td align="center" width="50%">
-							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="true" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 120px" ng-change="changeOutlets()">
+						<td align="center" width="33%">
+							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 120px" ng-change="changeOutlets()">
+
 						</td>
-						<td align="center" width="50%">
-							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="true" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 120px" ng-change="changeOutlets()">
+						<td align="center" width="33%">
+							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 120px" ng-change="changeOutlets()">
+						</td>
+						<td align="center" width="33%">
+							<input id="sliderOutlet_3" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletC" style="width: 120px" ng-change="changeOutlets()">
 						</td>
 					</tr>
+
+
+					<tr>
+						<td align="center" width="33%">
+							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
+						</td>
+						<td align="center" width="33%">
+							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
+						</td>
+						<td align="center" width="33%">
+							<br><p>A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
+						</td>
+					</tr>
+
 				</table>
 			
 			</div>
@@ -236,14 +257,16 @@
 			
 	<script>
 		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
-			.controller("GaugeCtrl", function($scope){
+			.controller("GaugeCtrl", function($scope, $http, $interval){
 				$scope.currentTempGauge = "27.0";
 				$scope.targetTempGauge = "0.0";
 				$scope.outlet_A = "off";
 				$scope.outlet_B = "off";
+				$scope.outlet_C = "off";
 				$scope.switchOutletA =  1;
 				$scope.switchOutletB =  1;
-				
+				$scope.switchOutletC =  2;
+
 				$scope.optionsLCD = {
 					size: 4,
 					watch: false
@@ -264,9 +287,7 @@
 				};
 				
 				$scope.changeOutlets = function (){
-				
-					
-					
+
 					switch($scope.switchOutletA){
 						case 0:
 							$scope.outlet_A = "off";
@@ -278,52 +299,103 @@
 								$scope.outlet_A = "off";
 							}
 							break;
-						case 3:
-							$scope.outlet_A = "on"
+						case 2:
+							$scope.outlet_A = "on";
 							break;
 					}
-					
+
+					if($scope.outlet_A == "on"){
+						$scope.relayOn(0);
+					}else{
+						$scope.relayOff(0);
+					}
 					
 					switch($scope.switchOutletB){
-						case "0":
+						case 0:
 							$scope.outlet_B = "off";
-							console.log($scope.switchOutletB);
 							break;
-						case "1":
+						case 1:
 							if(parseFloat($scope.currentTempGauge)<=parseFloat($scope.targetTempGauge)){
 								$scope.outlet_B = "off";
 							}else{
 								$scope.outlet_B = "on";
 							}
 							break;
-						case "3":
-							$scope.outlet_B = "on"
+						case 2:
+							$scope.outlet_B = "on";
 							break;
 					}
-						
+
+					if($scope.outlet_B == "on"){
+						$scope.relayOn(1);
+					}else{
+						$scope.relayOff(1);
+					}
+
+					if($scope.switchOutletC == 0){
+						$scope.outlet_C = $scope.outlet_A;
+					}
+
+					if($scope.switchOutletC == 1){
+						$scope.outlet_C = $scope.outlet_B;
+					}
+
+					if($scope.switchOutletC == 2){
+						$scope.outlet_C = "on";
+					}
+
+					if($scope.outlet_C == "on"){
+						$scope.relayOn(2);
+					}else{
+						$scope.relayOff(2);
+					}
+
+
 				}
+
+
+				$scope.getTemp = function () {
+					$http.get('http://127.0.0.1:5000/getTemp').
+						success(function(data) {
+							$scope.currentTempGauge = data.c.toString();
+							$scope.changeOutlets();
+						});
+				}
+
+
+
+				$scope.relayOn =  function(item) {
+					$http({
+						method: 'POST',
+						url: 'http://127.0.0.1:5000/relayOn',
+						data: "relay=" + item,
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					});
+				}
+
+				$scope.relayOff =  function(item) {
+					$http({
+						method: 'POST',
+						url: 'http://127.0.0.1:5000/relayOff',
+						data: "relay=" + item,
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					});
+				}
+
+
+
 				
 				$scope.changeOutlets();
+
+				$interval(function () {
+					$scope.getTemp();
+				}, 5000);
 	
 			})
 	</script>
 	<script>
 	 $(document).ready(function() {
-		var steps = {};
-		steps[0] = 'OFF';
-		steps[1] = 'AUTO';
-		steps[2] = 'ON';
-	
-		
-		for(var i =0;i<3;i++){
-			var sliderItems = $("#sliderOutlet_"+i).siblings(".k-slider-items");
 
-			$.each(steps, function(index, value){
-				var item = sliderItems.find("li:eq("+ (index) +")");
-				item.attr("title", value);
-				item.find("span").text(value);
-			});
-		}
 	});
 	</script>
 	

@@ -1,27 +1,31 @@
-#!/usr/bin/python
-##Get temp from Sensor ds18b20 on raspberry pi GPIO 4
-
-
-#import os
 import time
+import sys
+import platform
+
+#To run in my mac env
+import random
+
+this = sys.modules[__name__]
+
+this.temp_sensor = ""
 
 
-#os.system('modprobe w1-gpio')
-#os.system('modprobe w1-therm')
-
-
-temp_sensor = '/sys/bus/w1/devices/28-0115925d3eff/w1_slave'
+def init(w1_slave):
+    this.temp_sensor = w1_slave
 
 
 def temp_raw():
 
-    f = open(temp_sensor, 'r')
+    f = open(this.temp_sensor, 'r')
     lines = f.readlines()
     f.close()
     return lines
 
 
-def read_temp():
+def read_temp(scale):
+
+    if platform.system() == 'Darwin':
+        return random.randrange(-55, 150)
 
     lines = temp_raw()
     while lines[0].strip()[-3:] != 'YES':
@@ -33,10 +37,10 @@ def read_temp():
         temp_string = lines[1].strip()[temp_output + 2:]
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
-        return temp_c, temp_f
+        if scale == 'F':
+            return temp_f
+        else:
+            return temp_c
 
-while True:
-        print(read_temp())
-        time.sleep(1)
 
 
