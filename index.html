@@ -288,7 +288,7 @@
 				
 				$scope.changeOutlets = function (){
 
-					switch($scope.switchOutletA){
+					switch(int($scope.switchOutletA)){
 						case 0:
 							$scope.outlet_A = "off";
 							break;
@@ -310,7 +310,7 @@
 						$scope.relayOff(0);
 					}
 					
-					switch($scope.switchOutletB){
+					switch(int($scope.switchOutletB)){
 						case 0:
 							$scope.outlet_B = "off";
 							break;
@@ -332,15 +332,15 @@
 						$scope.relayOff(1);
 					}
 
-					if($scope.switchOutletC == 0){
+					if(int($scope.switchOutletC) == 0){
 						$scope.outlet_C = $scope.outlet_A;
 					}
 
-					if($scope.switchOutletC == 1){
+					if(int($scope.switchOutletC) == 1){
 						$scope.outlet_C = $scope.outlet_B;
 					}
 
-					if($scope.switchOutletC == 2){
+					if(int($scope.switchOutletC) == 2){
 						$scope.outlet_C = "on";
 					}
 
