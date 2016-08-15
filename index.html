@@ -369,14 +369,14 @@
 				$scope.reboot = function () {
 					$http.get('/reboot').
 						success(function(data) {
-							console.log(''Reboot);
+							console.log('Reboot');
 						});
 				}
 
 				$scope.shutdown = function () {
 					$http.get('/shutdown').
 						success(function(data) {
-							console.log(''Shutdown);
+							console.log('Shutdown');
 						});
 				}
 
