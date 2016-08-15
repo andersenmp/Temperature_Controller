@@ -40,7 +40,7 @@ def read_temp(scale):
         if scale == 'F':
             return temp_f
         else:
-            return format(temp_c, '.2f')
+            return format(temp_c, '.1f')
 
 
 
