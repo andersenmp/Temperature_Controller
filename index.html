@@ -366,6 +366,20 @@
 				}
 
 
+				$scope.reboot = function () {
+					$http.get('/reboot').
+						success(function(data) {
+							console.log(''Reboot);
+						});
+				}
+
+				$scope.shutdown = function () {
+					$http.get('/shutdown').
+						success(function(data) {
+							console.log(''Shutdown);
+						});
+				}
+
 				$scope.getTemp = function () {
 					$http.get('/getTemp').
 						success(function(data) {
