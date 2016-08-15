@@ -193,7 +193,8 @@
 						</td>
 					</tr>
 				</table>
-			
+				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
+				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
 			</div>
 
 		
@@ -278,6 +279,8 @@
 				$scope.switchOutletA =  1;
 				$scope.switchOutletB =  1;
 				$scope.switchOutletC =  2;
+				$scope.connected = false;
+
 
 				$scope.optionsLCD = {
 					size: 4,
@@ -369,22 +372,31 @@
 				$scope.reboot = function () {
 					$http.get('/reboot').
 						success(function(data) {
+							$scope.connected = false;
 							console.log('Reboot');
 						});
 				}
 
 				$scope.shutdown = function () {
-					$http.get('/shutdown').
-						success(function(data) {
+					$http.get('/shutdown')
+						.success(function(data) {
+							$scope.connected = false;
 							console.log('Shutdown');
+						})
+						.error(function(data, status) {
+  							$scope.connected = false;
 						});
 				}
 
 				$scope.getTemp = function () {
-					$http.get('/getTemp').
-						success(function(data) {
+					$http.get('/getTemp')
+						.success(function(data) {
+							$scope.connected = true;
 							$scope.currentTempGauge = data.c.toString();
 							$scope.changeOutlets();
+						})
+						.error(function(data, status) {
+  							$scope.connected = false;
 						});
 				}
 
