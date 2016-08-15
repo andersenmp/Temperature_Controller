@@ -1,4 +1,5 @@
 import os
+import platform
 from API_hardware import tempSensor, relay
 from flask import Flask, send_file, jsonify, request
 
@@ -12,12 +13,11 @@ pinList = [16, 20, 21, 26]
 relay.init(pinList)
 
 
-app = Flask(__name__,static_url_path='/static')
+app = Flask(__name__, static_url_path='/static')
 
 
 @app.route("/")
 def index():
-    print os.name
     return send_file("index.html")
 
 
@@ -39,5 +39,18 @@ def relayOff():
     relay.relayOff(item)
     return jsonify(Relay_Off=item)
 
+@app.route("/shutdown")
+def shutdown():
+    os.system("sudo shutdown -r now")
+    return 0
+
+@app.route("/reboot")
+def reboot():
+    os.system("sudo reboot")
+    return 0
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True)
+    if platform.system() == 'Darwin':
+        app.run(host='127.0.0.1', port=5000, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=80, debug=False)

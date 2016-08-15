@@ -17,7 +17,7 @@ def init(pinlist):
 def relayOn(i):
     try:
         GPIO.output(i, GPIO.LOW)
-        print "ON " + str(i)
+
 
     except KeyboardInterrupt:
         # Reset GPIO settings
@@ -26,7 +26,7 @@ def relayOn(i):
 def relayOff(i):
     try:
         GPIO.output(i, GPIO.HIGH)
-        print "OFF " + str(i)
+
 
     except KeyboardInterrupt:
         # Reset GPIO settings
