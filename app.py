@@ -41,7 +41,7 @@ def relayOff():
 
 @app.route("/shutdown")
 def shutdown():
-    os.system("sudo shutdown -r now")
+    os.system("sudo shutdown -h now")
     return 0
 
 @app.route("/reboot")
