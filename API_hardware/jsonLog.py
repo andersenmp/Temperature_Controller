@@ -2,7 +2,7 @@ import json, datetime
 
 
 def log(data):
-    f = 'static/download/app_log_' + datetime.datetime.now().strftime("%Y-%m-%d") + '.log'
+    f = 'files_download/day_' + datetime.datetime.now().strftime("%Y-%m-%d") + '.txt'
     with open(f, 'a') as outfile:
         json.dump(data, outfile)
         outfile.write("\n")
