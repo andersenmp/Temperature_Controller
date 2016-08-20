@@ -215,38 +215,41 @@
 				<table width="100%">
 					<tr>
 						<td align="center" width="33%">
-							<img ng-src="/static/images/outlet_{{outlet_A}}.png" alt="Outlet A" />
+							<img ng-src="/static/images/outlet_{{outlet_C}}.png" alt="Outlet C" />
 						</td>
 						<td align="center" width="33%">
 							<img ng-src="/static/images/outlet_{{outlet_B}}.png" alt="Outlet B" />
 						</td>
+
 						<td align="center" width="33%">
-							<img ng-src="/static/images/outlet_{{outlet_C}}.png" alt="Outlet C" />
+							<img ng-src="/static/images/outlet_{{outlet_A}}.png" alt="Outlet A" />
 						</td>
 					</tr>
 					<tr>
 						<td align="center" width="33%">
-							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 120px" ng-change="changeOutlets()">
-
+							<input id="sliderOutlet_3" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletC" style="width: 120px" ng-change="changeOutlets()">
 						</td>
 						<td align="center" width="33%">
 							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 120px" ng-change="changeOutlets()">
 						</td>
+
 						<td align="center" width="33%">
-							<input id="sliderOutlet_3" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletC" style="width: 120px" ng-change="changeOutlets()">
+							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 120px" ng-change="changeOutlets()">
+
 						</td>
 					</tr>
 
 
 					<tr>
 						<td align="center" width="33%">
-							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
-						</td>
-						<td align="center" width="33%">
-							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
-						</td>
-						<td align="center" width="33%">
 							<br><p>A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
+						</td>
+						<td align="center" width="33%">
+							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
+						</td>
+
+						<td align="center" width="33%">
+							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
 						</td>
 					</tr>
 
@@ -272,7 +275,7 @@
 		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
 			.controller("GaugeCtrl", function($scope, $http, $interval){
 				$scope.currentTempGauge = "27.0";
-				$scope.targetTempGauge = "0.0";
+				$scope.targetTempGauge = "27.0";
 				$scope.outlet_A = "off";
 				$scope.outlet_B = "off";
 				$scope.outlet_C = "off";
