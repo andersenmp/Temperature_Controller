@@ -1,7 +1,6 @@
 import os
 import platform
-import datetime
-from API_hardware import tempSensor, relay, jsonLog
+from API_hardware import tempSensor, relay
 from flask import Flask, send_file, jsonify, request
 
 
@@ -19,26 +18,18 @@ app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def index():
-    data = {'timestap':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':'index'}
-    jsonLog.log(data)
     return send_file("index.html")
 
 
 @app.route("/getTemp", methods=["GET"])
 def getTemp():
-    temp = tempSensor.read_temp('C')
-    data = {'timestap':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':"getTemp", 'temp':temp}
-    jsonLog.log(data)
-    return jsonify(c=temp)
+    return jsonify(c=tempSensor.read_temp('C'))
 
 
 @app.route("/relayOn", methods=["POST"])
 def relayOn():
     item = pinList[int(request.form['relay'])]
     relay.relayOn(item)
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'function': "relayOn", 'relay': int(request.form['relay'])}
-    jsonLog.log(data)
     return jsonify(Relay_On=item)
 
 
@@ -46,24 +37,15 @@ def relayOn():
 def relayOff():
     item = pinList[int(request.form['relay'])]
     relay.relayOff(item)
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'function': "relayOff", 'relay': int(request.form['relay'])}
-    jsonLog.log(data)
     return jsonify(Relay_Off=item)
 
 @app.route("/shutdown")
 def shutdown():
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'function': "shutdown"}
-    jsonLog.log(data)
     os.system("sudo shutdown -h now")
     return 0
 
 @app.route("/reboot")
 def reboot():
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'function': "reboot"}
-    jsonLog.log(data)
     os.system("sudo reboot")
     return 0
 
