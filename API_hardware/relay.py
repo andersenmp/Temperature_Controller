@@ -1,7 +1,9 @@
 
 import platform
 
-if platform.system() != 'Darwin':
+
+
+if platform.system() != 'Windows':
     import RPi.GPIO as GPIO
 else:
     import API_hardware.GPIO_MOCK as GPIO

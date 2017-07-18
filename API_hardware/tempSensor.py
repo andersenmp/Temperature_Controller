@@ -24,8 +24,8 @@ def temp_raw():
 
 def read_temp(scale):
 
-    if platform.system() == 'Darwin':
-        return random.randrange(-55, 150)
+    if platform.system() == 'Windows':
+        return random.randrange(-1, 110)
 
     lines = temp_raw()
     while lines[0].strip()[-3:] != 'YES':
