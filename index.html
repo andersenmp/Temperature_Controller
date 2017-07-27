@@ -310,9 +310,9 @@
 							<img ng-src="static/images/outlet_{{outlet_B}}.png" style="width:110px;height:100px" alt="Outlet B" />
 						</td>
 
-						<td align="center" width="33%">
-							Variable
-							<img ng-src="static/images/outlet_{{outlet_C}}.png" style="width:110px;height:100px" alt="Outlet C" />
+						<td align="center" width="33%" style="color:#000099">
+							Pump
+							<img ng-src="static/images/outlet_{{outlet_C}}.png" style="width:110px;height:100px" alt="Outlet C" ng-click="doSwitchOutletC(outlet_C)" />
 						</td>
 
 					</tr>
@@ -327,9 +327,6 @@
 							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 100px" ng-change="changeOutlets()">
 						</td>
 
-						<td align="center" width="33%">
-							<input id="sliderOutlet_3" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletC" style="width: 100px" ng-change="changeOutlets()">
-						</td>
 
 					</tr>
 
@@ -343,9 +340,7 @@
 						<td align="center" width="33%">
 							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
 						</td>
-						<td align="center" width="33%">
-							<br><p>A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
-						</td>
+
 					</tr>
 
 				</table>
@@ -375,7 +370,7 @@
 				$scope.outlet_C = "off";
 				$scope.switchOutletA =  1;
 				$scope.switchOutletB =  1;
-				$scope.switchOutletC =  2;
+				$scope.switchOutletC =  0;
 				$scope.connected = false;
 				$scope.stopTime = null;
 				$scope.isPaused = false;
@@ -400,6 +395,24 @@
 					width: 30
 				};
 
+
+
+				$scope.doSwitchOutletC = function(option){
+				    if(option == "on") {
+                        $scope.outlet_C = "off";
+                        $scope.switchOutletC = 0;
+                    } else {
+						$scope.outlet_C = "on";
+						$scope.switchOutletC = 1;
+					}
+
+					if($scope.outlet_C == "on"){
+						$scope.relayOn(2);
+					}else{
+						$scope.relayOff(2);
+					}
+
+				}
 
 				$scope.changeOutlets = function (){
 
@@ -447,7 +460,7 @@
 						$scope.relayOff(1);
 					}
 
-					if(parseInt($scope.switchOutletC) == 0){
+					/*if(parseInt($scope.switchOutletC) == 0){
 						$scope.outlet_C = $scope.outlet_A;
 					}
 
@@ -459,11 +472,19 @@
 						$scope.outlet_C = "on";
 					}
 
+					if(parseInt($scope.switchOutletC) == 0) {
+                        $scope.outlet_C = "off";
+                        $scope.switchOutletC = 1;
+                    } else {
+						$scope.outlet_C = "on";
+						$scope.switchOutletC = 0;
+					}
+
 					if($scope.outlet_C == "on"){
 						$scope.relayOn(2);
 					}else{
 						$scope.relayOff(2);
-					}
+					}*/
 
 
 				}
