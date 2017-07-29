@@ -1,12 +1,12 @@
 import json
 import datetime
+import os
 
 
 def log(data):
-    if platform.system() == 'Windows':
-        f = 'files_download/day_' + datetime.datetime.now().strftime("%Y-%m-%d") + '.txt'
-    else:
-        f = ' /home/pi/Temperature_Controller/files_download/day_' + datetime.datetime.now().strftime("%Y-%m-%d") + '.txt'
+    fileDir = os.path.dirname(os.path.realpath('__file__'))
+    filename =  'files_download/day_' + datetime.datetime.now().strftime("%Y-%m-%d") + '.txt'
+    f = os.path.join(fileDir, filename)
     with open(f, 'a') as outfile:
         json.dump(data, outfile)
         outfile.write("\n")
