@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="temperatureController">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Temperature Controller</title>
+     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="static/lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="static/lib/kendoui/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="static/lib/kendoui/styles/kendo.material.min.css" />
@@ -21,14 +22,15 @@
 		#displays {
 			position: absolute !important;
 			top: 250px;
-			width: 250px;
+			width: 300px;
+            left: 10px;
 
 		}
 
 
 		#timeUtil {
 			position: absolute !important;
-			top: 250px;
+			top: 280px;
 			left: 370px;
 		}
 
@@ -47,19 +49,27 @@
 
 		#buttonsDiv{
 			position: absolute !important;
-			top: 430px;
+			top: 420px;
 			right: 10px;
 		}
 
 		#connectionStatus{
 			position: absolute !important;
-			top: 410px;
+			top: 415px;
 			left: 10px;
 		}
 
+        #environmentDisplays{
+			position: absolute !important;
+			top: 20px;
+			left: 300px;
+		}
+
+
+
 		#outlets {
 			position: absolute !important;
-			top: 110px;
+			top: 130px;
 			left: 350px;
 			width: 300px;
 
@@ -74,6 +84,18 @@
 		}
 
 
+        .custom-on-class-env-temp {
+			fill: #c03c53;
+	    }
+
+         .custom-on-class-env-hum {
+			fill: blue;
+	    }
+        .custom-digit-class-env {
+			fill: #F0EDED;
+			background-color: #fff;
+		}
+
 		.custom-digit-class {
 			fill: #F0EDED;
 			background-color: #F9F9F9;
@@ -85,7 +107,7 @@
 	</style>
 
     <script src="static/lib/kendoui/js/jquery.min.js"></script>
-    <script src="static/lib/kendoui/js/angular.min.js"></script>
+    <script data-require="angular.js@1.0.x" src="static/lib/kendoui/js/angular.min.js"></script>
     <script src="static/lib/kendoui/js/kendo.all.min.js"></script>
 	<script src="static/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="static/lib/segment/angular-7segments.js"></script>
@@ -93,10 +115,10 @@
 
 
 </head>
-<body>
-<div ng-app="temperatureController">
+<body ng-controller="GaugeCtrl">
+<div>
 	<audio id="audio" src="static/sounds/alarm-clock-01.mp3" autostart="false" ></audio>
-    <div ng-controller="GaugeCtrl" >
+    <div  >
 	    <div id="gauges">
 			<span  id="currentTempGauge"
 				kendo-radialgauge
@@ -204,56 +226,109 @@
 				<button ng-click="shutdown()" class="btn btn-danger">
 					<span class="glyphicon glyphicon-off"></span> Shutdown
 				</button>
+                &nbsp;&nbsp;&nbsp;
+                <img ng-src="static/images/catspaw-rotulo-paw_logo.png" style="width:55px;height:50px" alt="Outlet A" />
+
 
 			</div>
 
 			<div id="connectionStatus">
-				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
-				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
+				<div ng-show="connected" style="color:green"><h3><span class="glyphicon glyphicon-flash"></span> Connected!</h3></div>
+				<div ng-show="!connected" style="color:red"><h2><span class="glyphicon glyphicon-ban-circle"></span>  NOT Connected!!!</h2></div>
 			</div>
-
-
 
 
 			<div id="displays">
 
 				<table width="100%">
 					<tr>
-
-						<td align="center" width="50%">
+                        <td width="5%" style="color: red">
+                            <span class="glyphicon glyphicon-screenshot"></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+						<td >
 							<div seg-group seg-options="options"
 								data-ng-model="targetTempGauge"
 								seg-digit-options="digitOptionsLCDTarget" > </div>
 						</td>
-						<td align="center" width="50%">
+                         <td style="color: red">ºC
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                         &nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+						<td >
+                            <span class="glyphicon glyphicon-fire"></span>
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td >
 							<div seg-group seg-options="options"
 								data-ng-model="currentTempGauge"
 								seg-digit-options="digitOptionsLCDCurrent" > </div>
 						</td>
+                        <td>ºC
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                         &nbsp;&nbsp;&nbsp;&nbsp;</td>
 					</tr>
+				</table>
+
+			</div>
+
+            <div id="environmentDisplays">
+
+				<table width="100%">
+					<tr>
+
+						<td style="color: blue">
+                            <span class="glyphicon glyphicon-cloud"></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td >
+							<div seg-group seg-options="optionsLCD"
+								data-ng-model="currentHumEnv"
+								seg-digit-options="digitOptionsLCDHum" > </div>
+						</td>
+                        <td style="color: blue">%</td>
+                    </tr>
+                    <tr>
+                         <td style="color: #c03c53">
+                            <span class="glyphicon glyphicon-fire"></span>
+                         </td>
+                        <td>
+							<div seg-group seg-options="optionsLCD"
+								data-ng-model="currentTempEnv"
+								seg-digit-options="digitOptionsLCDTemp" > </div>
+						</td>
+                        <td style="color: #c03c53">ºC</td>
+
+                    </tr>
 				</table>
 
 			</div>
 
 
 			<div id="timeUtil">
-				<h4 style="text-align: center">Timer</h4>
 				<table width="100%">
 					<tr>
-						<td>
+						<td width="5%">
+                        &nbsp;&nbsp;
+						  <span class="glyphicon glyphicon-hourglass"></span>
+                        </td>
+                        <td>
 							<div seg-group seg-options="optionsLCD"
 								data-ng-model="currentTimeGauge"
 								seg-digit-options="digitOptionsLCDCurrent" > </div>
 						</td>
 						<td>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-primary" ng-click="setUpCountDownTimer()">
-								  <span class="glyphicon glyphicon-plus"></span>
-							</button>
-							&nbsp;&nbsp;
+                            &nbsp;&nbsp;
 							<button type="button" class="btn btn-info" ng-click="setDownCountDownTimer()">
 							  <span class="glyphicon glyphicon-minus"></span>
 							</button>
+							&nbsp;&nbsp;
+							<button type="button" class="btn btn-danger" ng-click="setUpCountDownTimer()">
+								  <span class="glyphicon glyphicon-plus"></span>
+							</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span ng-show="currentTimeGauge == '.....'" class="glyphicon glyphicon-bell" style="font-size: 36px"></span>
+
 						</td>
 					</tr>
 				</table>
@@ -282,12 +357,12 @@
 				<span style="text-align: center">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button type="button" class="btn btn-danger" ng-click="setUpTemp()">
-						  <span class="glyphicon glyphicon-plus"></span>
-					</button>
-					&nbsp;&nbsp;
 					<button type="button" class="btn btn-info" ng-click="setDownTemp()">
 					  <span class="glyphicon glyphicon-minus"></span>
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger" ng-click="setUpTemp()">
+						  <span class="glyphicon glyphicon-plus"></span>
 					</button>
 				</span>
 
@@ -298,17 +373,17 @@
 				<table width="100%">
 					<tr>
 						<td align="center" width="33%" style="color:#E25822">
-							Heating
+							<span class="glyphicon glyphicon-fire"></span> Heating
 							<img ng-src="static/images/outlet_{{outlet_A}}.png" style="width:110px;height:100px" alt="Outlet A" />
 						</td>
 
 						<td align="center" width="33%" style="color:#00FFFF">
-							Cooling
+							<span class="glyphicon glyphicon-tint"></span> Cooling
 							<img ng-src="static/images/outlet_{{outlet_B}}.png" style="width:110px;height:100px" alt="Outlet B" />
 						</td>
 
 						<td align="center" width="33%" style="color:#000099">
-							Pump
+							<span class="glyphicon glyphicon-cog"></span> Pump
 							<img ng-src="static/images/outlet_{{outlet_C}}.png" style="width:110px;height:100px" alt="Outlet C" ng-click="doSwitchOutletC(outlet_C)" />
 						</td>
 
@@ -329,12 +404,14 @@
 	<script>
 		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
 			.controller("GaugeCtrl", function($scope, $http, $interval){
-				$scope.targetTemp =  27;
-			    $scope.targetTempGauge = "27";
+				$scope.targetTemp =  72;
+			    $scope.targetTempGauge = "72";
 				$scope.currentTempGauge = "27";
-
 				$scope.targetTimeGauge = "000";
 				$scope.currentTimeGauge = "000.00";
+
+				$scope.currentTempEnv = "00.0";
+				$scope.currentHumEnv =  "000.0";
 
 				$scope.outlet_A = "off";
 				$scope.outlet_B = "off";
@@ -367,6 +444,21 @@
 				};
 
 
+				$scope.digitOptionsLCDHum = {
+					onClass: 'custom-on-class-env-hum',   // class name for light-on part
+					digitClass: 'custom-digit-class',    // class name for entire digit
+					height: 30,
+					width: 20
+				};
+
+				$scope.digitOptionsLCDTemp = {
+					onClass: 'custom-on-class-env-temp',  // class name for light-on part
+					digitClass: 'custom-digit-class-env',    // class name for entire digit
+					height: 30,
+					width: 20
+				};
+
+
 
 				$scope.doSwitchOutletC = function(option){
 				    if(option == "on") {
@@ -389,17 +481,15 @@
 					if(parseFloat($scope.currentTempGauge)<parseFloat($scope.targetTempGauge)){
 							$scope.outlet_A = "on";
 							$scope.relayOn(0);
+							$scope.outlet_B = "off";
+						    $scope.relayOff(1);
 					}else{
 							$scope.outlet_A = "off";
-							$scope.relayOff(0)
+							$scope.relayOff(0);
+							$scope.outlet_B = "on";
+						    $scope.relayOn(1);
 					}
-					if(parseFloat($scope.currentTempGauge)<=parseFloat($scope.targetTempGauge)){
-						$scope.outlet_B = "off";
-						$scope.relayOn(1);
-					}else{
-						$scope.outlet_B = "on";
-						$scope.relayOff(1);
-					}
+
 				}
 
 
@@ -465,7 +555,7 @@
 
 
 				$scope.setUpTemp = function(){
-				    if($scope.targetTemp<120)
+				    if($scope.targetTemp<110)
 				    	$scope.targetTemp++;
 				    $scope.targetTempGauge = $scope.targetTemp.toString();
 				}
@@ -543,7 +633,7 @@
 
 				$interval(function () {
 					$scope.getTemp();
-				}, 1000);
+				}, 10000);
 
 			})
 	</script>

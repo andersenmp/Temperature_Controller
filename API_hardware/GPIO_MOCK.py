@@ -9,20 +9,20 @@ LOW = 0
 
 
 def setmode(a):
-    print a
+    print ("setmode GPIO",a)
 
 
 def setup(a, b):
-    print a
+    print ("setup GPIO", a, b)
 
 
 def output(a, b):
-    print a
+    print ("output GPIO", a, b)
 
 
 def cleanup():
-    print 'a'
+    print ("cleanup GPIO", a, b)
 
 
 def setwarnings(flag):
-    print 'False'
+    print ("setwarnings", flag)

@@ -36,7 +36,7 @@ def read_temp():
         return temp_c, temp_f
 
 while True:
-        print(read_temp())
+        print("Temp Test", read_temp())
         time.sleep(1)
 
 
