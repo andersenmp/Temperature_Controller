@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0fa3cf43-4e43-4827-8829-34b609319cc3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="Temperature_Controller.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -655,13 +654,6 @@
       <option name="presentableId" value="Default" />
       <updated>1471121913771</updated>
     </task>
-    <task id="LOCAL-00001" summary="getTemp test script">
-      <created>1471122523482</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1471122523483</updated>
-    </task>
     <task id="LOCAL-00002" summary="Relay test">
       <created>1471124319840</created>
       <option name="number" value="00002" />
@@ -998,7 +990,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501357253085</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Image">
+      <created>1501358961423</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1501358961423</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView">
