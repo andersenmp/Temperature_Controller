@@ -19,7 +19,7 @@ app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def index():
-    data = {'timestap':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':'index'}
+    data = {'timestamp':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':'index'}
     jsonLog.log(data)
     return send_file("index.html")
 
@@ -27,7 +27,7 @@ def index():
 @app.route("/getTemp", methods=["GET"])
 def getTemp():
     temp = tempSensor.read_temp('C')
-    data = {'timestap':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':"getTemp", 'temp':temp}
+    data = {'timestamp':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':"getTemp", 'temp':temp}
     jsonLog.log(data)
     return jsonify(c=temp)
 
@@ -36,7 +36,7 @@ def getTemp():
 def relayOn():
     item = pinList[int(request.form['relay'])]
     relay.relayOn(item)
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "relayOn", 'relay': int(request.form['relay'])}
     jsonLog.log(data)
     return jsonify(Relay_On=item)
@@ -46,14 +46,14 @@ def relayOn():
 def relayOff():
     item = pinList[int(request.form['relay'])]
     relay.relayOff(item)
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "relayOff", 'relay': int(request.form['relay'])}
     jsonLog.log(data)
     return jsonify(Relay_Off=item)
 
 @app.route("/shutdown")
 def shutdown():
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "shutdown"}
     jsonLog.log(data)
     os.system("sudo shutdown -h now")
@@ -61,7 +61,7 @@ def shutdown():
 
 @app.route("/reboot")
 def reboot():
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "reboot"}
     jsonLog.log(data)
     os.system("sudo reboot")
@@ -69,7 +69,7 @@ def reboot():
 
 @app.route("/update")
 def update():
-    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "update"}
     jsonLog.log(data)
     os.system("cd /home/pi/Temperature_Controller && git pull origin && sudo reboot")
