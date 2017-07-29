@@ -26,11 +26,9 @@
 		}
 
 
-
-
 		#timeUtil {
 			position: absolute !important;
-			top: 320px;
+			top: 250px;
 			left: 370px;
 		}
 
@@ -49,8 +47,8 @@
 
 		#buttonsDiv{
 			position: absolute !important;
-			top: 20px;
-			left: 250px;
+			top: 360px;
+			right: 10px;
 		}
 
 		#outlets {
@@ -75,22 +73,6 @@
 			background-color: #F9F9F9;
 		}
 
-		@media screen and (max-width: 650px) and (min-width: 100px) {
-
-			#sliders {
-				position: absolute !important;
-				top: 410px;
-				left: 50px;
-			}
-
-			#outlets {
-				position: absolute !important;
-				top: 550px;
-				width: 200px;
-				left: 0;
-
-			}
-		}
 
 
 
@@ -205,6 +187,10 @@
 
 			<div id="buttonsDiv">
 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
+				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
+
 				<button ng-click="reboot()" class="btn btn-danger">
 					 <span class="glyphicon glyphicon-refresh"></span> Reboot
 				</button>
@@ -240,60 +226,60 @@
 
 
 			<div id="timeUtil">
-
-
-			<table width="100%">
+				<h4 style="text-align: center">Timer</h4>
+				<table width="100%">
 					<tr>
-
-							<td align="center" width="50%">
-										<div seg-group seg-options="optionsLCD"
-								data-ng-model="targetTimeGauge"
-								seg-digit-options="digitOptionsLCDTarget" > </div>
-
-							<p>
-								<h4>Timer (minutes)</h4>
-								<input kendo-slider k-min="0" k-max="120" k-show-buttons="true" k-show-labels="false" k-small-step="1" k-large-step="5" ng-model="targetTimeGauge">
-							</p>
-						</td>
-						<td align="center" width="50%">
+						<td>
 							<div seg-group seg-options="optionsLCD"
 								data-ng-model="currentTimeGauge"
 								seg-digit-options="digitOptionsLCDCurrent" > </div>
-
-								<button type="button" class="btn btn-default btn-sm" ng-click="startTimer()">
-								  <span class="glyphicon glyphicon-play"></span>
-								</button>
-								&nbsp;&nbsp;
-								<button type="button" class="btn btn-default btn-sm" ng-click="pauseCountDownTimer()">
-								  <span class="glyphicon glyphicon-pause"></span>
-								</button>
-								&nbsp;&nbsp;
-								<button type="button" class="btn btn-default btn-sm" ng-click="stopCountDownTimer()">
-								  <span class="glyphicon glyphicon-stop"></span>
-								</button>
-
-								&nbsp;&nbsp;
-								<button type="button" class="btn btn-default btn-sm" ng-click="setCountDownTimer()">
-								  <span class="glyphicon glyphicon-repeat"></span>
-								</button>
+						</td>
+						<td>
+							&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary" ng-click="setUpCountDownTimer()">
+								  <span class="glyphicon glyphicon-plus"></span>
+							</button>
+							&nbsp;&nbsp;
+							<button type="button" class="btn btn-info" ng-click="setDownCountDownTimer()">
+							  <span class="glyphicon glyphicon-minus"></span>
+							</button>
 						</td>
 					</tr>
 				</table>
+			<br>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" ng-click="startTimer()">
+					  <span class="glyphicon glyphicon-play"></span>
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" ng-click="pauseCountDownTimer()">
+					  <span class="glyphicon glyphicon-pause"></span>
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" ng-click="stopCountDownTimer()">
+					  <span class="glyphicon glyphicon-stop"></span>
+					</button>
 
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" ng-click="setCountDownTimer()">
+					  <span class="glyphicon glyphicon-repeat"></span>
+					</button>
 			</div>
 
 
 			<div id="sliders">
-				<p>
-					<h4>Target Temperature</h4>
-					<input kendo-slider k-min="-10" k-max="110" k-show-buttons="true" k-show-labels="false" k-small-step="0.5" k-large-step="5" ng-model="targetTempGauge">
-				</p>
-				<!--- <p>
-					<h4 style="color:red"> Current Temperature (TEST ONLY)</h4>
-					<input kendo-slider k-min="-10" k-max="120" k-show-buttons="true" k-show-labels="false" k-small-step="0.5" k-large-step="5" ng-model="currentTempGauge" ng-change="changeOutlets()">
-				</p> --->
-				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
-				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
+				<span style="text-align: center">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger" ng-click="setUpTemp()">
+						  <span class="glyphicon glyphicon-plus"></span>
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-info" ng-click="setDownTemp()">
+					  <span class="glyphicon glyphicon-minus"></span>
+					</button>
+				</span>
+
 			</div>
 
 			<div id="outlets">
@@ -316,33 +302,6 @@
 						</td>
 
 					</tr>
-					<tr>
-
-						<td align="center" width="33%">
-							<input id="sliderOutlet_1" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletA" style="width: 100px" ng-change="changeOutlets()">
-
-						</td>
-
-						<td align="center" width="33%">
-							<input id="sliderOutlet_2" kendo-slider k-min="0" k-max="2" k-show-buttons="false" k-show-labels="false" k-small-step="1" k-large-step="1" ng-model="switchOutletB" style="width: 100px" ng-change="changeOutlets()">
-						</td>
-
-
-					</tr>
-
-
-					<tr>
-
-						<td align="center" width="33%">
-							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
-						</td>
-
-						<td align="center" width="33%">
-							<br><p>Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</p>
-						</td>
-
-					</tr>
-
 				</table>
 
 			</div>
@@ -359,8 +318,9 @@
 	<script>
 		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
 			.controller("GaugeCtrl", function($scope, $http, $interval){
-				$scope.targetTempGauge = "27.0";
-				$scope.currentTempGauge = "27.0";
+				$scope.targetTemp =  27;
+			    $scope.targetTempGauge = "27";
+				$scope.currentTempGauge = "27";
 
 				$scope.targetTimeGauge = "000";
 				$scope.currentTimeGauge = "000.00";
@@ -415,78 +375,20 @@
 				}
 
 				$scope.changeOutlets = function (){
-
-					switch(parseInt($scope.switchOutletA)){
-						case 0:
-							$scope.outlet_A = "off";
-							break;
-						case 1:
-							if(parseFloat($scope.currentTempGauge)<parseFloat($scope.targetTempGauge)){
-								$scope.outlet_A = "on";
-							}else{
-								$scope.outlet_A = "off";
-							}
-							break;
-						case 2:
+					if(parseFloat($scope.currentTempGauge)<parseFloat($scope.targetTempGauge)){
 							$scope.outlet_A = "on";
-							break;
-					}
-
-					if($scope.outlet_A == "on"){
-						$scope.relayOn(0);
+							$scope.relayOn(0);
 					}else{
-						$scope.relayOff(0);
+							$scope.outlet_A = "off";
+							$scope.relayOff(0)
 					}
-
-					switch(parseInt($scope.switchOutletB)){
-						case 0:
-							$scope.outlet_B = "off";
-							break;
-						case 1:
-							if(parseFloat($scope.currentTempGauge)<=parseFloat($scope.targetTempGauge)){
-								$scope.outlet_B = "off";
-							}else{
-								$scope.outlet_B = "on";
-							}
-							break;
-						case 2:
-							$scope.outlet_B = "on";
-							break;
-					}
-
-					if($scope.outlet_B == "on"){
+					if(parseFloat($scope.currentTempGauge)<=parseFloat($scope.targetTempGauge)){
+						$scope.outlet_B = "off";
 						$scope.relayOn(1);
 					}else{
+						$scope.outlet_B = "on";
 						$scope.relayOff(1);
 					}
-
-					/*if(parseInt($scope.switchOutletC) == 0){
-						$scope.outlet_C = $scope.outlet_A;
-					}
-
-					if(parseInt($scope.switchOutletC) == 1){
-						$scope.outlet_C = $scope.outlet_B;
-					}
-
-					if(parseInt($scope.switchOutletC) == 2){
-						$scope.outlet_C = "on";
-					}
-
-					if(parseInt($scope.switchOutletC) == 0) {
-                        $scope.outlet_C = "off";
-                        $scope.switchOutletC = 1;
-                    } else {
-						$scope.outlet_C = "on";
-						$scope.switchOutletC = 0;
-					}
-
-					if($scope.outlet_C == "on"){
-						$scope.relayOn(2);
-					}else{
-						$scope.relayOff(2);
-					}*/
-
-
 				}
 
 
@@ -541,6 +443,33 @@
 					});
 				}
 
+
+
+				$scope.setUpTemp = function(){
+				    if($scope.targetTemp<120)
+				    	$scope.targetTemp++;
+				    $scope.targetTempGauge = $scope.targetTemp.toString();
+				}
+
+				$scope.setDownTemp = function(){
+				    if($scope.targetTemp>-10)
+				    	$scope.targetTemp--;
+				    $scope.targetTempGauge = $scope.targetTemp.toString();
+				}
+
+				$scope.setUpCountDownTimer = function(){
+				    if($scope.targetTimeGauge<120)
+				    	$scope.targetTimeGauge++;
+				    $interval.cancel($scope.stopTime);
+					$scope.setCountDownTimer();
+				}
+
+				$scope.setDownCountDownTimer = function(){
+					 if($scope.targetTimeGauge>0)
+				    	$scope.targetTimeGauge--;
+					$interval.cancel($scope.stopTime);
+					$scope.setCountDownTimer();
+				}
 
 				$scope.setCountDownTimer = function(){
 					$scope.currentTimeGauge = $scope.targetTimeGauge + ".00";
