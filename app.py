@@ -68,7 +68,7 @@ def reboot():
     return 0
 
 @app.route("/update")
-def reboot():
+def update():
     data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'function': "update"}
     jsonLog.log(data)
