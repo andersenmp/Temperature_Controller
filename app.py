@@ -67,6 +67,14 @@ def reboot():
     os.system("sudo reboot")
     return 0
 
+@app.route("/update")
+def reboot():
+    data = {'timestap': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'function': "update"}
+    jsonLog.log(data)
+    os.system("cd /home/pi/Temperature_Controller && git pull origin && sudo reboot")
+    return 0
+
 if __name__ == "__main__":
     if platform.system() == 'Darwin':
         app.run(host='127.0.0.1', port=5000, debug=True)

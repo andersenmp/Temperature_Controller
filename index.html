@@ -47,8 +47,14 @@
 
 		#buttonsDiv{
 			position: absolute !important;
-			top: 360px;
+			top: 430px;
 			right: 10px;
+		}
+
+		#connectionStatus{
+			position: absolute !important;
+			top: 420px;
+			left: 10px;
 		}
 
 		#outlets {
@@ -186,11 +192,11 @@
 
 
 			<div id="buttonsDiv">
-
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
-				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
-
+				&nbsp;&nbsp;&nbsp;
+				<button ng-click="update()" class="btn btn-warning">
+					<span class="glyphicon glyphicon-refresh"></span> Update
+				</button>
+				&nbsp;&nbsp;&nbsp;
 				<button ng-click="reboot()" class="btn btn-danger">
 					 <span class="glyphicon glyphicon-refresh"></span> Reboot
 				</button>
@@ -199,6 +205,11 @@
 					<span class="glyphicon glyphicon-off"></span> Shutdown
 				</button>
 
+			</div>
+
+			<div id="connectionStatus">
+				<div ng-show="connected" style="color:green"><h3>Connected!</h3></div>
+				<div ng-show="!connected" style="color:red"><h2>NOT Connected!!!</h2></div>
 			</div>
 
 
@@ -392,6 +403,15 @@
 				}
 
 
+				$scope.update = function () {
+					$http.get('/update').
+						success(function(data) {
+							$scope.connected = false;
+							console.log('Update and Reboot');
+						});
+				}
+
+
 				$scope.reboot = function () {
 					$http.get('/reboot').
 						success(function(data) {
@@ -442,7 +462,6 @@
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					});
 				}
-
 
 
 				$scope.setUpTemp = function(){
