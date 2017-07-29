@@ -76,6 +76,8 @@ def update():
     return 0
 
 if __name__ == "__main__":
+    data = {'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function': 'main'}
+    jsonLog.log(data)
     if platform.system() == 'Darwin':
         app.run(host='127.0.0.1', port=5000, debug=True)
     else:
