@@ -533,7 +533,18 @@
 						});
 				}
 
+                $scope.getHumTemp = function () {
+					$http.get('/getHumTemp')
+						.success(function(data) {
+							$scope.currentTempEnv = data.temp.toString();
+				            $scope.currentHumEnv =  data.hum.toString();
+				            console.log('getHumTemp',data )
 
+						})
+						.error(function(data, status) {
+  							console.log('Error getHumTemp',data )
+						});
+				}
 
 				$scope.relayOn =  function(item) {
 					$http({
@@ -630,10 +641,15 @@
 
 
 				$scope.changeOutlets();
+				$scope.getHumTemp();
 
 				$interval(function () {
 					$scope.getTemp();
 				}, 10000);
+
+				$interval(function () {
+					$scope.getHumTemp();
+				}, 60000);
 
 			})
 	</script>

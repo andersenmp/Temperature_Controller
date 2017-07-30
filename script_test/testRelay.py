@@ -7,7 +7,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # init list with pin numbers
-pinList = [16,20,21,26]
+pinList = [16,20,21]
 
 # loop through pins and set mode and state to 'low'
 

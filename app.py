@@ -1,7 +1,7 @@
 import os
 import platform
 import datetime
-from API_hardware import tempSensor, relay, jsonLog
+from API_hardware import tempSensor, relay, jsonLog, DHT11
 from flask import Flask, send_file, jsonify, request
 
 
@@ -10,8 +10,11 @@ from flask import Flask, send_file, jsonify, request
 tempSensor.init('/sys/bus/w1/devices/28-0115925d3eff/w1_slave')
 
 # init list with pin numbers for relays
-pinList = [16, 20, 21, 26]
+pinList = [16, 20, 21]
 relay.init(pinList)
+
+DHT_Sensor = 11
+DHT_Pin = 19
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -30,6 +33,14 @@ def getTemp():
     data = {'timestamp':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':"getTemp", 'temp':temp}
     jsonLog.log(data)
     return jsonify(c=temp)
+
+@app.route("/getHumTemp", methods=["GET"])
+def getHumTemp():
+    hum, temp = DHT11.readHumTemp(DHT_Sensor,DHT_Pin)
+    data = {'timestamp':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'function':"getHumTemp", 'temp':temp, 'hum':hum}
+    jsonLog.log(data)
+    return jsonify(hum=hum, temp=temp)
+
 
 
 @app.route("/relayOn", methods=["POST"])

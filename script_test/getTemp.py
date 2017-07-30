@@ -1,5 +1,5 @@
 #!/usr/bin/python
-##Get temp from Sensor ds18b20 on raspberry pi GPIO 4
+##Get temp from Sensor ds18b20 on raspberry pi GPIO 26
 
 
 #import os
