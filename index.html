@@ -372,9 +372,11 @@
 
 				<table width="100%">
 					<tr>
-						<td align="center" width="33%" style="color:#E25822">
-							<span class="glyphicon glyphicon-fire"></span> Heating
-							<img ng-src="static/images/outlet_{{outlet_A}}.png" style="width:110px;height:100px" alt="Outlet A" />
+
+
+						<td align="center" width="33%" style="color:#000099">
+							<span class="glyphicon glyphicon-cog"></span> Pump
+							<img ng-src="static/images/outlet_{{outlet_C}}.png" style="width:110px;height:100px" alt="Outlet C" ng-click="doSwitchOutletC(outlet_C)" />
 						</td>
 
 						<td align="center" width="33%" style="color:#00FFFF">
@@ -382,9 +384,10 @@
 							<img ng-src="static/images/outlet_{{outlet_B}}.png" style="width:110px;height:100px" alt="Outlet B" />
 						</td>
 
-						<td align="center" width="33%" style="color:#000099">
-							<span class="glyphicon glyphicon-cog"></span> Pump
-							<img ng-src="static/images/outlet_{{outlet_C}}.png" style="width:110px;height:100px" alt="Outlet C" ng-click="doSwitchOutletC(outlet_C)" />
+
+						<td align="center" width="33%" style="color:#E25822">
+							<span class="glyphicon glyphicon-fire"></span> Heating
+							<img ng-src="static/images/outlet_{{outlet_A}}.png" style="width:110px;height:100px" alt="Outlet A" />
 						</td>
 
 					</tr>
