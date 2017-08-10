@@ -407,7 +407,7 @@
 		angular.module("temperatureController", [ "kendo.directives", "wo.7segments" ])
 			.controller("GaugeCtrl", function($scope, $http, $interval){
 				$scope.targetTemp =  72;
-			    $scope.differentialTemp =  0.5;
+			    $scope.differentialTemp =  1;
 				$scope.targetTempGauge = "72";
 				$scope.currentTempGauge = "27";
 				$scope.targetTimeGauge = "000";
